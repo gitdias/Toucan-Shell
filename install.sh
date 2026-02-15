@@ -36,10 +36,24 @@ semver_ge() {
   (( a3 >= b3 ))
 }
 
+#as_root() {
+#  if [[ "${EUID:-$(id -u)}" -ne 0 ]]; then
+#    need_cmd sudo
+#    exec sudo -E bash "$0" "$@"
+#  fi
+#}
 as_root() {
   if [[ "${EUID:-$(id -u)}" -ne 0 ]]; then
     need_cmd sudo
-    exec sudo -E bash "$0" "$@"
+
+    # Se o script está sendo executado via stdin (ex.: curl|bash),
+    # não existe um arquivo para "$0". Nesse caso, preserve o stdin e eleve assim:
+    if [[ ! -f "${BASH_SOURCE[0]:-}" ]] || [[ "${BASH_SOURCE[0]:-}" == "-" ]]; then
+      exec sudo -E bash -s -- "$@"
+    fi
+
+    # Caso normal (arquivo local)
+    exec sudo -E bash "${BASH_SOURCE[0]}" "$@"
   fi
 }
 
