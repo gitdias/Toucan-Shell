@@ -1,0 +1,16 @@
+# logs / cache
+logs/
+*.log
+
+# build artifacts (se existirem)
+build/
+dist/
+
+# editor / OS
+.vscode/
+.idea/
+.DS_Store
+
+# temp
+tmp/
+.git
