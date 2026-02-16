@@ -1,16 +1,35 @@
-# logs / cache
+# Build artifacts
+*.o
+*.so
+build/
+
+# QML cache
+.qmlcache/
+**/.qmlcache/
+
+# Logs
 logs/
 *.log
 
-# build artifacts (se existirem)
-build/
-dist/
+# Managed config (LSP)
+.qmlls.ini
+**/.qmlls.ini
 
-# editor / OS
-.vscode/
-.idea/
+# User customizations (if using copy model)
+quickshell/customize/themes/*
+!quickshell/customize/themes/.gitkeep
+
+# Temp files
+*.swp
+*.swo
+*~
 .DS_Store
 
-# temp
-tmp/
-.git
+# IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# Backup files
+*.bak
+*.backup
